@@ -1,0 +1,22 @@
+Instructions:
+
+Folders:
+
+Includes - has the header and footer pages inside. You an include at the bottom and top of your page.
+Pages- has the dummy pages for what the css has the abbilities to do. Good for copy and pasting code snippets
+All others: leave alone unless your planning to mess with the CSS. Just be aware that what ever you do may affect everyone else's work.
+
+CSS folders:
+dist
+bower_components
+
+
+Getting In:
+http://localhost/index.php
+
+
+
+                                    
+                                    
+                                
+                                    
