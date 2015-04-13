@@ -23,6 +23,10 @@
 	if ($conn->connect_error) {
     	die("Connection failed: " . $conn->connect_error);
 	}
+	
+// Google APIs
+
+	set_include_path(get_include_path() . PATH_SEPARATOR . '../google-api-php-client/src');
 
 ?>
 
