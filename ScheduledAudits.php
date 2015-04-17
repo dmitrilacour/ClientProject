@@ -2,13 +2,20 @@
 
 // Include Header
 	include 'includes/Header.php';
+	
+// Get Search criteria from form
+	$strFirstNameCriteria = $_POST["txtFirstName"];
+	$strLastNameCriteria = $_POST["txtLastName"];
+	$strAuditDateCriteria = $_POST["txtAuditDate"];
+	$strAuditorCriteria = $_POST["txtAuditor"];
+	$strAuditStatusCriteria = $_POST["ddlAuditStatus"];
 
 
 // Use spCreateAudit Schedule
 
 	//Make SQL statement
 	
-		$sql = "CALL spCreateAuditSchedule";
+		$sql = "SELECT AuditID AS ID, AuditDate AS 'Date', CONCAT(FirstName, ' ', LastName) AS Client, Auditor, Status, tblClientProfile.ClientID FROM `tblClientProfile` JOIN `tblScheduledAudits` ON tblClientProfile.ClientID = tblScheduledAudits.ClientID WHERE AuditDate LIKE CONCAT('%', '".$strAuditDateCriteria."', '%') AND FirstName LIKE CONCAT('%', '".$strFirstNameCriteria."', '%') AND LastName LIKE CONCAT('%', '".$strLastNameCriteria."', '%') AND Auditor LIKE CONCAT('%', '".$strAuditorCriteria."', '%') AND Status LIKE CONCAT('%', '".$strAuditStatusCriteria."', '%') ORDER BY AuditDate, Client;";
 
 	// Run query
 	
@@ -27,35 +34,36 @@
 	<form name="frmClientProfile" method="post" action="ScheduledAudits.php">
 		<div class="form-group">
 			<label>First Name:</label>
-			<input class="form-control" type="text" name="txtFirstName" placeholder="First Name" >
+			<input class="form-control" type="text" id="txtFirstName" name="txtFirstName" placeholder="First Name" value="<?php echo $strFirstNameCriteria ?>">
 		</div>
 		
 		<div class="form-group">
 			<label>Last Name:</label>
-			<input class="form-control" type="text" name="txtLastName" placeholder="Last Name" >
+			<input class="form-control" type="text" id="txtLastName" name="txtLastName" placeholder="Last Name" value="<?php echo $strLastNameCriteria ?>" >
 		</div>
 		
 		<div class="form-group">
 			<label>Audit Date:</label>
-			<input class="form-control" type="date" name="txtAuditDate" placeholder="Audit Date" >
+			<input class="form-control" type="date" id="txtAuditDate" name="txtAuditDate" placeholder="Audit Date" value="<?php echo $strAuditDateCriteria ?>" >
 		</div>
 		
 		<div class="form-group">
 			<label>Auditor:</label>
-			<input class="form-control" type="text" name="txtAuditor" placeholder="Auditor" >
+			<input class="form-control" type="text" id="txtAuditor" name="txtAuditor" placeholder="Auditor" value="<?php echo $strAuditorCriteria ?>" >
 		</div>	
 		
 		<div class="form-group">
 			<label>Audit Status:</label>
-			<select name="ddlAuditStatus" id="ddlAuditStatus" class="form-control">
-				<option value="">Select</option>
-				<option value="PreAudit">PreAudit</option>
-				<option value="Scheduled">Scheduled</option>
-				<option value="Complete">Complete</option>
+			<select id="ddlAuditStatus" name="ddlAuditStatus" id="txtFirstName" id="ddlAuditStatus" class="form-control">
+				<option value="" selected>Select</option>
+				<option value="Pre Audit" <?php if ($strAuditStatusCriteria === "Pre Audit") echo 'selected="selected"'; ?> >Pre Audit</option>
+				<option value="Audit" <?php if ($strAuditStatusCriteria === "Audit") echo 'selected="selected"'; ?> >Audit</option>
+				<option value="Completed" <?php if ($strAuditStatusCriteria === "Completed") echo 'selected="selected"'; ?> >Completed</option>
 			</select>
 		</div>
 		
 		<input class="btn btn-default" type="Submit" name="btnSearch" value="Search Audit Schedule" >
+		<input class="btn btn-default" type="Submit" name="btnReset" value="Reset Audit Schedule" onclick="ClearFields()" >
 		<br><br><br>
 		
 	</form>
@@ -134,6 +142,15 @@
 
 
 <script>
+
+	function ClearFields() {
+		document.getElementById("txtFirstName").value = ""
+		document.getElementById("txtLastName").value = ""
+		document.getElementById("txtAuditDate").value = ""
+		document.getElementById("txtAuditor").value = ""
+		document.getElementById("ddlAuditStatus").selectedIndex = 0
+	}
+	
 	function form(intClientID, strAuditStatus) {
 		txtClientID = document.getElementById("txtClientID")
 		txtClientID.value = intClientID
