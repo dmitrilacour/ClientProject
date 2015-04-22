@@ -1,10 +1,12 @@
 <?php
 
+session_start();
+
 
 
 
 // Get all inputs from form
-$intClientID = $_COOKIE['ClientID'];
+$intClientID = $_SESSION["seshClientID"];
 $intFirstFloorSF = $_POST["txtFirstSF"];
 $intSecondFloorSF = $_POST["txtSecondSF"];
 $intAtticSF = $_POST["txtAtticSF"];
