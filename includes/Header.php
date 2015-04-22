@@ -2,9 +2,26 @@
 
 // Redirect if User and Type not set
 
-	if (!isset($_COOKIE['User']) and !isset($_COOKIE['UserType'])) {
+	if ( !isset($_COOKIE['User']) or !isset($_COOKIE['UserType']) ) {
 		header( 'Location: LoginForm.php' );
+	} else {
+		// Set new cookies (to extend time limit)
+
+		// Set User cookie
+		
+			$CookieName = 'User';
+			$CookieValue = $_COOKIE['User'];
+	
+			setcookie($CookieName, $CookieValue, time() + 1800);
+
+		// Set User Type cookie
+		
+			$CookieName = 'UserType';
+			$CookieValue = $_COOKIE['UserType'];
+
+			setcookie($CookieName, $CookieValue, time() + 1800);
 	}
+			
 
 
 // DB Credentials
@@ -23,6 +40,10 @@
 	if ($conn->connect_error) {
     	die("Connection failed: " . $conn->connect_error);
 	}
+	
+// Google APIs
+
+	set_include_path(get_include_path() . PATH_SEPARATOR . '../google-api-php-client/src');
 
 ?>
 

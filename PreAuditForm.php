@@ -2,11 +2,11 @@
 
 // Check if Client cookie is set
 
-	if (!isset($_COOKIE['Client'])) {
+	if (!isset($_COOKIE['ClientID'])) {
 	
 	// Set Client Cookie using form submission
 	
-		$CookieName = 'Client';
+		$CookieName = 'ClientID';
 		$CookieValue = $_POST["txtClientID"];
 
 		setcookie($CookieName, $CookieValue, time() + 3600);
@@ -15,17 +15,17 @@
 
 // Check if Client cookie is set now
 
-	if (!isset($_COOKIE['Client'])) {
+	if (!isset($_COOKIE['ClientID'])) {
 	
 	// Redirect to Scheduled Audits if client not selected
 	
-	header( 'Location: ScheduledAudits.php' );
+		header( 'Location: ScheduledAudits.php' );
 	
 	}
 
 // Set client ID using Client cookie
 
-	$intClientID = $_COOKIE['Client'];
+	$intClientID = $_COOKIE['ClientID'];
 	
 // Include Header
 

@@ -1,1 +1,0 @@
-CALL spSubmitNewClient('Test', 'Test', 'Test', 'Test', 'TX', '12345', '123-456-7890', '123-456-7890', 'email@email.com', 'email@email.com', '1', '1', '1', '2015-05-31', 'Auditor'); 

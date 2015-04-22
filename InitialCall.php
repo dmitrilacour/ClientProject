@@ -6,7 +6,7 @@
 
 // Include Header
 
-	include 'includes/Header.php';
+	include 'includes/DatabaseConnection.php';
 
 // Get user input from submission
 
@@ -65,9 +65,7 @@
 
 		setcookie($CookieName, $CookieValue, time() + 1800);
 
+// Google Calendar
 
-// Include Footer
-
-	include 'includes/footer.php';
 
 ?>

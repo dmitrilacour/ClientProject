@@ -8,9 +8,14 @@
 
 // Redirect to Audit Schedule if client not selected
 
-	if ( $_COOKIE["ClientID"] == false ) {
-		header( 'Location: ScheduledAudits.php' );
+	if ( !isset($_COOKIE["ClientID"]) ) {
+		//header( 'Location: ScheduledAudits.php' );
 	}
+	
+	// Get ClientID submitted from ScheduledAudits.php
+
+		$intClientID = $_COOKIE[$CookieName];
+		echo $_COOKIE[$CookieName];
 
 // Include Header
 
@@ -18,9 +23,6 @@
 
 // Database Code
 
-	// Get ClientID submitted from ScheduledAudits.php
-
-		$intClientID = $_COOKIE["ClientID"];
 
 	// SQL to get Client Profile Information
 
