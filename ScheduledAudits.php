@@ -1,5 +1,11 @@
 <?php
 
+// Delete previous Client cookie
+	$CookieName = 'ClientID';
+	$CookieValue = '';
+
+	setcookie($CookieName, $CookieValue, time() - 1800);
+
 // Include Header
 	include 'includes/Header.php';
 	
@@ -15,13 +21,13 @@
 
 	//Make SQL statement
 	
-		$sql = "SELECT AuditID AS ID, AuditDate AS 'Date', CONCAT(FirstName, ' ', LastName) AS Client, Auditor, Status, tblClientProfile.ClientID FROM `tblClientProfile` JOIN `tblScheduledAudits` ON tblClientProfile.ClientID = tblScheduledAudits.ClientID WHERE AuditDate LIKE CONCAT('%', '".$strAuditDateCriteria."', '%') AND FirstName LIKE CONCAT('%', '".$strFirstNameCriteria."', '%') AND LastName LIKE CONCAT('%', '".$strLastNameCriteria."', '%') AND Auditor LIKE CONCAT('%', '".$strAuditorCriteria."', '%') AND Status LIKE CONCAT('%', '".$strAuditStatusCriteria."', '%') ORDER BY AuditDate, Client;";
+		$sql = "SELECT AuditID AS ID, AuditDate AS 'Date', CONCAT(FirstName, ' ', LastName) AS Client, Auditor, Status, tblClientProfile.ClientID FROM `tblClientProfile` JOIN `tblScheduledAudits` ON tblClientProfile.ClientID = tblScheduledAudits.ClientID WHERE AuditDate LIKE CONCAT('%', '".$strAuditDateCriteria."', '%') AND FirstName LIKE CONCAT('%', '".$strFirstNameCriteria."', '%') AND LastName LIKE CONCAT('%', '".$strLastNameCriteria."', '%') AND Auditor LIKE CONCAT('%', '".$strAuditorCriteria."', '%') AND Status LIKE CONCAT('".$strAuditStatusCriteria."', '%') ORDER BY AuditDate, Client;";
 
 	// Run query
 	
 		$result = $conn->query($sql);
 	
-	//Adapt result set
+	// Adapt result set
 	
 		for ($set = array (); $row = $result->fetch_assoc(); $set[] = $row);
 
@@ -141,7 +147,7 @@
 
 
 
-<script>
+<script type="text/javascript">
 
 	function ClearFields() {
 		document.getElementById("txtFirstName").value = ""
@@ -155,19 +161,17 @@
 		txtClientID = document.getElementById("txtClientID")
 		txtClientID.value = intClientID
 		
-		sessionStorage.ClientID = intClientID
-		
 		frmClientID = document.getElementById("frmClientID")
 		
 		if (strAuditStatus == "Pre Audit") {
 			frmClientID.action="PreAuditForm.php"
-		} else if (strAuditStatus == 'Audit') {
+		} else if (strAuditStatus == "Audit") {
 			frmClientID.action="AuditForm.php"
 		} else {
 			frmClientID.action="CustomerProfile.php"
 		}
 		
-		document.getElementById("frmClientID").submit();
+		frmClientID.submit()
 	}
 </script>
 

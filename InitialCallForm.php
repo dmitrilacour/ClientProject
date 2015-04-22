@@ -1,4 +1,12 @@
-<?php 
+<?php
+
+// Set new Client cookie
+	$CookieName = 'Client';
+	$CookieValue = $_POST["txtClientID"];
+
+	setcookie($CookieName, $CookieValue, time() + 1800);
+
+
 
 // Include Header
 	
@@ -94,7 +102,7 @@
 		------------------->
 			<h1>Schedule Audit</h1>
 				<div class='form-group'>Audit Date:
-					<input class="form-control" type="date" name="txtAuditDate" placeholder="Audit Date" required>
+					<input class="form-control" type="datetime-local" name="txtAuditDate" placeholder="Audit Date" required>
 				</div>
 			
 				<div class='form-group'>Auditor:
